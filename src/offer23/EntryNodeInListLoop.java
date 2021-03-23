@@ -1,6 +1,7 @@
 package offer23;
 
 import offer22.KthNodeFromEnd.ListNode;
+import offer35.CopyComplexList.Node;
 
 public class EntryNodeInListLoop {
 
@@ -112,5 +113,26 @@ public class EntryNodeInListLoop {
 			fast = fast.next;
 		}
 		return fast;
+	}
+	//另一种写法
+	public ListNode getLoopNode(ListNode head) {
+		if(head == null || head.next == null || head.next.next == null) {
+			return null;
+		}
+		ListNode n1 = head.next;
+		ListNode n2 = head.next;
+		while(n1 != n2) {
+			if(n2.next == null || n2.next.next == null) {
+				return null;
+			}
+			n2 = n2.next.next;
+			n1 = n1.next;
+		}
+		n2 = head;
+		while(n1 != n2) {
+			n1 = n1.next;
+			n2 = n2.next;
+		}
+		return n1;
 	}
 }

@@ -21,6 +21,8 @@ public class DeleteNodeList {
 			next = nextNode;
 		}
 	}
+	//如果只是传入待删除结点的指针，没有头结点，这是删除不了尾结点的
+	//比如尾结点本来p->null， 如果赋值p=null，其实本质都没改变，p都是指向null
 	//如果传入的是一个待删除结点的结点指针
 	//单指针
 	public ListNode deleteNode(ListNode head, ListNode pToBeDeleted) {

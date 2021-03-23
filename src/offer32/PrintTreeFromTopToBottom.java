@@ -41,7 +41,7 @@ public class PrintTreeFromTopToBottom {
 		TreeNode node = null;
 		//如果队列不空，则执行while循环里的语句
 		//一个一个进队出队
-		while(queue.size() != 0) {
+		while(!queue.isEmpty()) {
 			//先弹出队列元素，并保存或者输出
 			node = queue.poll();
 			System.out.print(node.val + " ");
@@ -213,6 +213,7 @@ public class PrintTreeFromTopToBottom {
 	 * 之字形打印二叉树
 	 */
 	
+	// 如果要输出最大层的结点，可以用一个maxLevel标记最大层是那一层
 	public void printTree3(TreeNode root) {
 		//如果树空，则直接返回即可
 		if(root == null) {

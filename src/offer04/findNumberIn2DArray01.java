@@ -54,6 +54,30 @@ public class findNumberIn2DArray01 {
 		
 		return false;
 	}
+	
+	//从左到右递增，下一行第一个比上一行最后一个还大!!!
+	//也就是整体可以连成一个有序序列！！！ 那么可以采用二分查找！！！
+	boolean find(int matrix[][], int value) { 
+		 int rows = matrix.length; 
+		 int cols = matrix[0].length; 
+		 int start = 0; 
+		 int end = rows * cols - 1; 
+		 while (start <= end) { 
+		 int mid = start + (end - start) / 2; 
+		 int row = mid / cols; 
+		 int col = mid % cols; 
+		 int v = matrix[row][col]; 
+		 
+		 if (v == value) 
+		 return true; 
+		 if (v > value) 
+		 end = mid - 1; 
+		 else 
+		 start = mid + 1; 
+		 } 
+		 
+		 return false; 
+		}
 	public static void main(String[] args) {
 		System.out.print("main函数调用静态方法：");
 		int[][] matrix = { { 1, 2, 8 }, { 4, 3, 9, 12 }, { 4, 7, 10 }, { 6, 8, 11, 15 } };

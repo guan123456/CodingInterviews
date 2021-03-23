@@ -53,6 +53,7 @@ public class NextNodeInBinaryTree {
 		return null;
 	}
 	
+	
 	public void test() {
 		TreeNode node1 = new TreeNode("a");
 		TreeNode node2 = new TreeNode("b");

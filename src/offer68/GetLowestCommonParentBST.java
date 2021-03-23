@@ -1,4 +1,7 @@
 package offer68;
+
+import offer35.CopyComplexList.Node;
+
 /**
 * @author 作者:guan
 * @createDate 创建时间：Feb 16, 2021 9:04:47 PM
@@ -13,11 +16,11 @@ public class GetLowestCommonParentBST {
 	}
 
 	public class TreeNode{
-		int val;
-		TreeNode right = null;
-		TreeNode left = null;
+		int value;
+		TreeNode right;
+		TreeNode left;
 		public TreeNode(int val) {
-			this.val = val;
+			this.value = val;
 		}
 		
 	}
@@ -29,10 +32,10 @@ public class GetLowestCommonParentBST {
 			if(root == null) {
 				return root;
 			}
-			if(root.val < node1.val && root.val < node2.val) {
+			if(root.value < node1.value && root.value < node2.value) {
 				root = root.right;
 			}
-			else if(root.val > node1.val && root.val > node2.val) {
+			else if(root.value > node1.value && root.value > node2.value) {
 				root = root.left;
 			}else {
 				return root;
@@ -57,11 +60,52 @@ public class GetLowestCommonParentBST {
         if(root==null){
             return -1;
         }
-        if( root.val== o1 || root.val == o2){
-            return root.val;
+        if( root.value== o1 || root.value == o2){
+            return root.value;
         }
         int left = lowestCommonAncestor(root.left,o1,o2);
         int right = lowestCommonAncestor(root.right,o1,o2);
-        return left == -1 ? right : right == -1 ? left : root.val; 
+        return left == -1 ? right : right == -1 ? left : root.value; 
+    }
+    
+    public static class Info{
+    	public TreeNode ans;
+    	public boolean findO1;
+    	public boolean findO2;
+    	public Info(TreeNode a, boolean f1, boolean f2) {
+    		ans = a;
+    		findO1 = f1;
+    		findO2 = f2;
+    	}
+    }
+    
+    public static Info process(TreeNode X, TreeNode o1, TreeNode o2) {
+    	if(X == null) {
+    		return new Info(null, false, false);
+    	}
+    	Info leftInfo = process(X.left, o1, o2);
+    	Info rightInfo = process(X.right, o1, o2);
+    	
+    	boolean findO1 = X == o1 || leftInfo.findO1 || rightInfo.findO1;
+    	boolean findO2 = X == o2 || leftInfo.findO2 || rightInfo.findO2;
+    	
+    	// O1和O2最初的交汇点在哪
+    	// 1) 在左树上已经提前交汇了
+    	// 2) 在右树上已经提前交汇了
+    	// 3) 没有在左树或者右树上提前交汇，O1 O2 全了
+    	// 4) 没有交汇，保持ans 为null
+    	TreeNode ans = null;
+    	if(leftInfo.ans != null) {
+    		ans = leftInfo.ans;
+    	}
+    	if(rightInfo.ans != null) {
+    		ans = rightInfo.ans;
+    	}
+    	if(ans == null) {
+    		if(findO1 && findO2) {
+    			ans = X;
+    		}
+    	}
+    	return new Info(ans, findO1, findO2);
     }
 }
